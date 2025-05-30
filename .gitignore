@@ -19,5 +19,4 @@ __pycache__/
 models/*.cbm
 !models/catboost_min_features.cbm
 
-notebooks/debugging/debug.ipynb
-!notebooks/**/*.ipynb
+debug.ipynb

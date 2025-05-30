@@ -9,36 +9,22 @@ from fastapi import Depends
 
 logger = logging.getLogger(__name__)
 
-# Загрузка переменных окружения из .env файла
 load_dotenv()
 
 def get_db_url() -> str:
-    db_user = os.getenv("DB_USER")
-    db_password = os.getenv("DB_PASSWORD")
-    db_host = os.getenv("DB_HOST")
-    db_port = os.getenv("DB_PORT")
-    db_name = os.getenv("DB_NAME")
-    
-    if not all([db_user, db_password, db_host, db_port, db_name]):
-        logger.error("One or more database environment variables are missing!")
-        raise ValueError("Database configuration is incomplete")
-    
-    return f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+    """Формирует URL для подключения к БД из переменных окружения"""
+    return f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}" \
+           f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 
 def get_data_loader() -> DataLoader:
     """Зависимость для загрузчика данных"""
-    db_url = get_db_url()
-    loader = DataLoader(db_url)
+    loader = DataLoader(get_db_url())
     loader.load_features()
-    logger.info("Data features loaded")
     return loader
 
 def get_model():
     """Зависимость для ML модели"""
-    model_path = os.getenv("MODEL_PATH", "catboost_min_features.cbm")
-    model = load_model(model_path)
-    logger.info("ML model loaded")
-    return model
+    return load_model(os.getenv("MODEL_PATH", "catboost_model.cbm"))
 
 def get_feature_processor() -> FeatureProcessor:
     """Зависимость для обработки признаков"""

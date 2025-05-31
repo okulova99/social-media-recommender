@@ -20,3 +20,4 @@ models/*.cbm
 !models/catboost_min_features.cbm
 
 debug.ipynb
+readme.ipynb

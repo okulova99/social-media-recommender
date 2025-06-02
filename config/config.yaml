@@ -1,0 +1,37 @@
+feature_engineering:
+  text_analyzer:
+    language_model: "en_core_web_sm"
+    disable_components: ["parser", "ner"]
+    stop_words: ["a", "an", "the", "in", "on", "at"]
+    
+    patterns:
+      - name: "phones"
+        pattern: "(?:\\+?\\d{1,3}[-.\\s]?)?\\(?\\d{2,3}\\)?[-.\\s]?\\d{2,3}[-.\\s]?\\d{2,4}(?:\\s*(?:ext|x|доб)[-.]?\\d{2,5})?"
+        flags: "VERBOSE"
+      
+      - name: "dates"
+        pattern: "\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}"
+      
+      - name: "years"
+        pattern: "\\b(?:19|20)\\d{2}s?\\b"
+      
+      - name: "mentions"
+        pattern: "@\\w+"
+      
+      - name: "hashtags"
+        pattern: "#\\w+"
+      
+      - name: "urls"
+        pattern: "https?://\\S+"
+      
+      - name: "emails"
+        pattern: "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"
+    
+    truncation_patterns:
+      - "\\.{3}\\s*https?://\\S+$"
+      - "…\\s*https?://\\S+$"
+      - "\\bcontinued?\\s*https?://\\S+$"
+      - "\\bread more\\b.*https?://\\S+$"
+      - "…\\s*https://t\\.co/\\w+$"
+      - "\\.{3}\\s*https://t\\.co/\\w+$"
+      - "https?://t\\.co/\\w+$"

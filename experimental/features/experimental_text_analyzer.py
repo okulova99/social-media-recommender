@@ -1,8 +1,11 @@
 """
-NOTE: Этот модуль содержит экспериментальный класс
-для извлечения признаков из текста постов.
-Класс не используется в текущей версии модели.
-Сохранен для возможного будущего использования.
+NOTE: This module contains an experimental class 
+for feature extraction from post texts.
+
+The class is not used in the current model version.
+Retained for potential future use.
+
+Full documentation: docs/text_analyzer_en.md
 """
 import re
 import logging

@@ -98,3 +98,46 @@ To overcome these intertwined challenges **a differentiable proxy metric (ROC-AU
    <img src="https://latex.codecogs.com/svg.latex?\underset{\text{posts}}{\mathrm{argmax}}%20\,P(\text{like}|\text{user},\text{post})" width="220" />
    
 4. Select top-5 highest probability posts
+
+### 🧠 Model Architecture & Training
+
+#### Production Model: `catboost_min_features.cbm`
+
+#### Final Configuration:
+
+```python
+CatBoostClassifier(
+    iterations=60,
+    learning_rate=1.0,
+    depth=2,
+    random_state=42,
+    cat_features=[
+        'topic', 'TextCluster', 'gender', 'country',
+        'city', 'exp_group', 'time_of_day', 'is_weekend',
+        'request_day_of_week', 'request_month'
+    ]
+)
+```
+
+#### Full Feature Space (33 features):
+
+```python
+# Post features
+['topic', 'views', 'view_reach', 'TotalTfIdf', 'MaxTfIdf', 'MeanTfIdf',
+ 'TextCluster', 'DistanceTo1thCluster', ..., 'DistanceTo15thCluster',
+
+# User features
+'country', 'gender', 'age', 'city', 'exp_group',
+
+# Temporal features
+'request_hour', 'request_day_of_week', 'request_month',
+'request_week', 'is_weekend', 'time_of_day']
+```
+
+
+#### Gradient Decay Experiments
+
+Tested progressive learning rate reduction through sequential training:
+
+
+  

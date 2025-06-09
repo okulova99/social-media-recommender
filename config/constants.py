@@ -7,3 +7,6 @@ PROCESSED_DIR = DATA_DIR / "processed"
 
 DATA_DIR.mkdir(exist_ok=True)
 PROCESSED_DIR.mkdir(exist_ok=True)
+
+MODELS_DIR = PROJECT_ROOT / "models"
+MODELS_DIR.mkdir(exist_ok=True)

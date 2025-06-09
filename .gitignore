@@ -22,3 +22,5 @@ models/*.cbm
 debug.ipynb
 readme.ipynb
 data/processed/*.pkl
+
+catboost_info/
